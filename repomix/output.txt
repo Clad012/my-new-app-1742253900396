@@ -14,6 +14,7 @@ pages/
     hello.ts
   _app.tsx
   _document.tsx
+  bookings.tsx
   cars.tsx
   index.tsx
   welcome.tsx
@@ -308,6 +309,82 @@ This section contains the contents of the repository's files.
 11:     </Html>
 12:   );
 13: }
+</file>
+
+<file path="pages/bookings.tsx">
+ 1: import { Layout } from "@/components/Layout";
+ 2: import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+ 3: 
+ 4: interface Booking {
+ 5:   id: number;
+ 6:   car: string;
+ 7:   startDate: string;
+ 8:   endDate: string;
+ 9:   status: string;
+10: }
+11: 
+12: const mockBookings: Booking[] = [
+13:   {
+14:     id: 1,
+15:     car: "Toyota Camry",
+16:     startDate: "2024-05-15",
+17:     endDate: "2024-05-20",
+18:     status: "Confirmed",
+19:   },
+20:   {
+21:     id: 2,
+22:     car: "Honda Civic",
+23:     startDate: "2024-06-01",
+24:     endDate: "2024-06-05",
+25:     status: "Pending",
+26:   },
+27:   {
+28:     id: 3,
+29:     car: "Ford Mustang",
+30:     startDate: "2024-07-10",
+31:     endDate: "2024-07-15",
+32:     status: "Cancelled",
+33:   },
+34: ];
+35: 
+36: export default function Bookings(): JSX.Element {
+37:   return (
+38:     <Layout title="Bookings" description="View your car bookings.">
+39:       <div className="container mx-auto p-4">
+40:         <h1 className="text-3xl font-bold text-center mb-8">My Bookings</h1>
+41: 
+42:         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+43:           {mockBookings.map((booking) => (
+44:             <Card key={booking.id}>
+45:               <CardHeader>
+46:                 <CardTitle>{booking.car}</CardTitle>
+47:                 <CardDescription>
+48:                   {booking.startDate} - {booking.endDate}
+49:                 </CardDescription>
+50:               </CardHeader>
+51:               <CardContent>
+52:                 <p>Status: <span className={getStatusClass(booking.status)}>{booking.status}</span></p>
+53:               </CardContent>
+54:             </Card>
+55:           ))}
+56:         </div>
+57:       </div>
+58:     </Layout>
+59:   );
+60: }
+61: 
+62: function getStatusClass(status: string): string {
+63:     switch (status) {
+64:         case "Confirmed":
+65:             return "text-green-500";
+66:         case "Pending":
+67:             return "text-yellow-500";
+68:         case "Cancelled":
+69:             return "text-red-500";
+70:         default:
+71:             return "";
+72:     }
+73: }
 </file>
 
 <file path="pages/cars.tsx">
