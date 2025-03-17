@@ -5,6 +5,7 @@ The content has been processed where line numbers have been added.
 components/
   ui/
     button.tsx
+    card.tsx
   Layout.tsx
 lib/
   utils.ts
@@ -14,6 +15,7 @@ pages/
   _app.tsx
   _document.tsx
   index.tsx
+  welcome.tsx
 public/
   file.svg
   globe.svg
@@ -95,6 +97,87 @@ This section contains the contents of the repository's files.
 50: Button.displayName = "Button";
 51: 
 52: export { Button };
+</file>
+
+<file path="components/ui/card.tsx">
+ 1: import * as React from "react"
+ 2: import { cn } from "@/lib/utils"
+ 3: 
+ 4: const Card = React.forwardRef<
+ 5:   HTMLDivElement,
+ 6:   React.HTMLAttributes<HTMLDivElement>
+ 7: >(({ className, ...props }, ref) => (
+ 8:   <div
+ 9:     ref={ref}
+10:     className={cn(
+11:       "rounded-lg border bg-card text-card-foreground shadow-sm",
+12:       className
+13:     )}
+14:     {...props}
+15:   />
+16: ))
+17: Card.displayName = "Card"
+18: 
+19: const CardHeader = React.forwardRef<
+20:   HTMLDivElement,
+21:   React.HTMLAttributes<HTMLDivElement>
+22: >(({ className, ...props }, ref) => (
+23:   <div
+24:     ref={ref}
+25:     className={cn("flex flex-col space-y-1.5 p-6", className)}
+26:     {...props}
+27:   />
+28: ))
+29: CardHeader.displayName = "CardHeader"
+30: 
+31: const CardTitle = React.forwardRef<
+32:   HTMLParagraphElement,
+33:   React.HTMLAttributes<HTMLHeadingElement>
+34: >(({ className, ...props }, ref) => (
+35:   <h3
+36:     ref={ref}
+37:     className={cn(
+38:       "text-2xl font-semibold leading-none tracking-tight",
+39:       className
+40:     )}
+41:     {...props}
+42:   />
+43: ))
+44: CardTitle.displayName = "CardTitle"
+45: 
+46: const CardDescription = React.forwardRef<
+47:   HTMLParagraphElement,
+48:   React.HTMLAttributes<HTMLParagraphElement>
+49: >(({ className, ...props }, ref) => (
+50:   <p
+51:     ref={ref}
+52:     className={cn("text-sm text-muted-foreground", className)}
+53:     {...props}
+54:   />
+55: ))
+56: CardDescription.displayName = "CardDescription"
+57: 
+58: const CardContent = React.forwardRef<
+59:   HTMLDivElement,
+60:   React.HTMLAttributes<HTMLDivElement>
+61: >(({ className, ...props }, ref) => (
+62:   <div ref={ref} className={cn("p-6 pt-0", className)} {...props} />
+63: ))
+64: CardContent.displayName = "CardContent"
+65: 
+66: const CardFooter = React.forwardRef<
+67:   HTMLDivElement,
+68:   React.HTMLAttributes<HTMLDivElement>
+69: >(({ className, ...props }, ref) => (
+70:   <div
+71:     ref={ref}
+72:     className={cn("flex items-center p-6 pt-0", className)}
+73:     {...props}
+74:   />
+75: ))
+76: CardFooter.displayName = "CardFooter"
+77: 
+78: export { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter }
 </file>
 
 <file path="components/Layout.tsx">
@@ -272,23 +355,87 @@ This section contains the contents of the repository's files.
 43:           that calls an API endpoint.
 44:         </p>
 45: 
-46:         <div className="flex flex-col gap-4">
-47:           <Button onClick={fetchData} className="w-full">
-48:             Call API
-49:           </Button>
-50: 
-51:           {message && (
-52:             <div className="p-4 rounded bg-muted overflow-auto max-h-40">
-53:               <pre className="text-sm font-mono whitespace-pre-wrap">
-54:                 {message}
-55:               </pre>
-56:             </div>
-57:           )}
-58:         </div>
-59:       </div>
-60:     </Layout>
-61:   );
-62: }
+46: 
+47:         <div className="flex flex-col gap-4">
+48:           <Button onClick={fetchData} className="w-full">
+49:             Call API
+50:           </Button>
+51:           <Button asChild className="w-full">
+52:             <a href="/welcome">Go to Welcome Page</a>
+53:           </Button>
+54: 
+55: 
+56:           {message && (
+57:             <div className="p-4 rounded bg-muted overflow-auto max-h-40">
+58:               <pre className="text-sm font-mono whitespace-pre-wrap">
+59:                 {message}
+60:               </pre>
+61:             </div>
+62:           )}
+63:         </div>
+64:       </div>
+65:     </Layout>
+66:   );
+67: }
+</file>
+
+<file path="pages/welcome.tsx">
+ 1: import { Layout } from "@/components/Layout";
+ 2: import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+ 3: import { CheckCircleIcon } from "lucide-react";
+ 4: 
+ 5: /**
+ 6:  * Welcome page component
+ 7:  *
+ 8:  * Displays a welcome message and a list of features.
+ 9:  *
+10:  * @returns {JSX.Element} The rendered welcome page.
+11:  */
+12: export default function Welcome(): JSX.Element {
+13:   const features = [
+14:     {
+15:       title: "Feature 1",
+16:       description: "This is a description of the first feature.",
+17:     },
+18:     {
+19:       title: "Feature 2",
+20:       description: "This is a description of the second feature.",
+21:     },
+22:     {
+23:       title: "Feature 3",
+24:       description: "This is a description of the third feature.",
+25:     },
+26:     {
+27:       title: "Feature 4",
+28:       description: "This is a description of the fourth feature.",
+29:     },
+30:   ];
+31: 
+32:   return (
+33:     <Layout title="Welcome" description="Welcome to our application!">
+34:       <div className="container mx-auto p-4">
+35:         <h1 className="text-3xl font-bold text-center mb-8">
+36:           Welcome to Our Application!
+37:         </h1>
+38: 
+39:         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+40:           {features.map((feature, index) => (
+41:             <Card key={index} className="flex flex-col justify-between">
+42:               <CardHeader>
+43:                 <div className="flex items-center">
+44:                   <CheckCircleIcon className="mr-2 text-green-500" />
+45:                   <CardTitle>{feature.title}</CardTitle>
+46:                 </div>
+47: 
+48:                 <CardDescription>{feature.description}</CardDescription>
+49:               </CardHeader>
+50:             </Card>
+51:           ))}
+52:         </div>
+53:       </div>
+54:     </Layout>
+55:   );
+56: }
 </file>
 
 <file path="public/file.svg">
