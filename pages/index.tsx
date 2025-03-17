@@ -48,9 +48,14 @@ export default function Home(): JSX.Element {
           <Button onClick={fetchData} className="w-full">
             Call API
           </Button>
-          <Button asChild className="w-full">
-            <a href="/welcome">Go to Welcome Page</a>
-          </Button>
+
+            <Button asChild className="w-full">
+              <a href="/welcome">Go to Welcome Page</a>
+            </Button>
+            <Button asChild className="w-full">
+              <a href="/rooms">Go to Rooms Page</a>
+            </Button>
+
 
 
           {message && (

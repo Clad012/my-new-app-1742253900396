@@ -17,6 +17,7 @@ pages/
   bookings.tsx
   cars.tsx
   index.tsx
+  meetings.tsx
   welcome.tsx
 public/
   file.svg
@@ -535,6 +536,77 @@ This section contains the contents of the repository's files.
 65:     </Layout>
 66:   );
 67: }
+</file>
+
+<file path="pages/meetings.tsx">
+ 1: import { Layout } from "@/components/Layout";
+ 2: import {
+ 3:   Card,
+ 4:   CardContent,
+ 5:   CardDescription,
+ 6:   CardHeader,
+ 7:   CardTitle,
+ 8: } from "@/components/ui/card";
+ 9: 
+10: interface Meeting {
+11:   id: number;
+12:   title: string;
+13:   date: string;
+14:   time: string;
+15:   attendees: string[];
+16: }
+17: 
+18: const mockMeetings: Meeting[] = [
+19:   {
+20:     id: 1,
+21:     title: "Project Kickoff",
+22:     date: "2024-05-20",
+23:     time: "10:00 AM",
+24:     attendees: ["Alice", "Bob", "Charlie"],
+25:   },
+26:   {
+27:     id: 2,
+28:     title: "Design Review",
+29:     date: "2024-05-22",
+30:     time: "2:00 PM",
+31:     attendees: ["Alice", "Charlie", "David"],
+32:   },
+33:   {
+34:     id: 3,
+35:     title: "Sprint Planning",
+36:     date: "2024-05-24",
+37:     time: "11:00 AM",
+38:     attendees: ["Bob", "Charlie", "Eve"],
+39:   },
+40: ];
+41: 
+42: export default function Meetings(): JSX.Element {
+43:   return (
+44:     <Layout title="Meetings" description="View upcoming meetings.">
+45:       <div className="container mx-auto p-4">
+46:         <h1 className="text-3xl font-bold text-center mb-8">Upcoming Meetings</h1>
+47: 
+48:         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+49:           {mockMeetings.map((meeting) => (
+50:             <Card key={meeting.id}>
+51:               <CardHeader>
+52:                 <CardTitle>{meeting.title}</CardTitle>
+53:                 <CardDescription>
+54:                   {meeting.date} at {meeting.time}
+55:                 </CardDescription>
+56:               </CardHeader>
+57:               <CardContent>
+58:                 <p>
+59:                   Attendees: {meeting.attendees.join(", ")}
+60:                 </p>
+61:               </CardContent>
+62:             </Card>
+63:           ))}
+64:         </div>
+65:       </div>
+66:     </Layout>
+67:   );
+68: }
 </file>
 
 <file path="pages/welcome.tsx">
