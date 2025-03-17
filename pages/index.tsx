@@ -43,10 +43,15 @@ export default function Home(): JSX.Element {
           that calls an API endpoint.
         </p>
 
+
         <div className="flex flex-col gap-4">
           <Button onClick={fetchData} className="w-full">
             Call API
           </Button>
+          <Button asChild className="w-full">
+            <a href="/welcome">Go to Welcome Page</a>
+          </Button>
+
 
           {message && (
             <div className="p-4 rounded bg-muted overflow-auto max-h-40">
