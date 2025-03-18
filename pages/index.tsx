@@ -1,6 +1,8 @@
 import { useState } from "react";
 import { Layout } from "@/components/Layout";
 import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import test from "xml";
 
 /**
  * Home component - Main landing page of the application
@@ -43,20 +45,19 @@ export default function Home(): JSX.Element {
           that calls an API endpoint.
         </p>
 
+        <Input type="text" placeholder="Enter your message" />
 
         <div className="flex flex-col gap-4">
           <Button onClick={fetchData} className="w-full">
             Call API
           </Button>
 
-            <Button asChild className="w-full">
-              <a href="/welcome">Go to Welcome Page</a>
-            </Button>
-            <Button asChild className="w-full">
-              <a href="/rooms">Go to Rooms Page</a>
-            </Button>
-
-
+          <Button asChild className="w-full">
+            <a href="/welcome">Go to Welcome Page</a>
+          </Button>
+          <Button asChild className="w-full">
+            <a href="/rooms">Go to Rooms Page</a>
+          </Button>
 
           {message && (
             <div className="p-4 rounded bg-muted overflow-auto max-h-40">
